@@ -4,18 +4,20 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish()">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :데이터들="데이터들"></Container>
-  <button @click="more">더보기</button>
+  <Container :데이터들="데이터들" :step="step" :이미지="이미지" @write="작성한글 = $event"></Container>
+  <button @click="more" v-if="step == 0">더보기</button>
+
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
-      <label for="file" class="input-plus">+</label>
+      <input @change="upload" type="file" id="file" class="inputfile" /> 
+      <label for="file" class="input-plus" v-if="step == 0">+</label>
     </ul>
  </div>
 </template>
@@ -33,8 +35,11 @@ export default {
   },
   data(){
     return {
+      step : 0,
       데이터들 : Data,
       더보기 : 0,
+      이미지 : '',
+      작성한글 : '',
     }
   },
   methods : {
@@ -44,7 +49,28 @@ export default {
         this.데이터들.push(결과.data); 
         this.더보기++;//이데이터를 위에 data에 pusu
       })
-    }
+    },
+    upload(e){
+      let 파일 = e.target.files; //업로드한 파일
+      let url = URL.createObjectURL(파일[0]) //해당 파일로 url 만들기
+      console.log(url)
+      this.이미지 = url
+      this.step = 1
+    },
+    publish(){
+    var 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=1",
+        postImage: this.이미지,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.작성한글,
+        filter: "perpetua"
+      };
+      this.게시물.unshift(내게시물);
+      this.step = 0;
+    }, 
   },
 
 }
