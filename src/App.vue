@@ -58,19 +58,19 @@ export default {
       this.step = 1
     },
     publish(){
-    var 내게시물 = {
-        name: "Kim Hyun",
-        userImage: "https://picsum.photos/100?random=1",
-        postImage: this.이미지,
-        likes: 36,
-        date: "May 15",
-        liked: false,
-        content: this.작성한글,
-        filter: "perpetua"
-      };
-      this.게시물.unshift(내게시물);
-      this.step = 0;
-    }, 
+      var 내게시물 = {
+          name: "Kim Hyun",
+          userImage: "https://picsum.photos/100?random=1",
+          postImage: this.이미지,
+          likes: 36,
+          date: "May 15",
+          liked: false,
+          content: this.작성한글,
+          filter: "perpetua"
+        };
+        this.데이터들.unshift(내게시물);
+        this.step = 0;
+      }, 
   },
 
 }
